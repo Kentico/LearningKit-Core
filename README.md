@@ -26,7 +26,7 @@
 
 1. Open the `LearningKitCore.sln` solution in Visual Studio and run the LearningKit web application.
 
-## Accessing older version of the repository
+## Accessing older versions of the repository
 
 You can find older versions of the LearningKit project under the [Releases section](https://github.com/KenticoInternal/LearningKit-Mvc/releases) (open the corresponding commit for the required version and click **Browse files**).
 
