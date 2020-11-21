@@ -1,0 +1,90 @@
+﻿@using System.Linq
+
+@model LearningKitCore.Models.Users.Account.SignInViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Sign in";
+}
+
+
+<div class="row justify-content-center">
+    <div class="col-6">
+
+        <h2>Sign in</h2>
+
+        <div asp-validation-summary="ModelOnly">
+            <span>Please correct the following errors</span>
+        </div>
+
+        <form asp-controller="Account" asp-action="SignIn" method="post">
+            <div class="form-group">
+                <span><label asp-for="UserName"></label></span>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="Password"></label></span>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="RememberMe"></label></span>
+                <input asp-for="RememberMe" class="form-control" />
+                <span asp-validation-for="RememberMe" class="text-danger"></span>
+            </div>
+
+            <input type="submit" value="Sign in" class="btn btn-primary" />
+        </form>
+        <br />
+
+        <span>
+            <a asp-controller="PasswordReset"
+               asp-action="PasswordResetRequest">I forgot my password</a>
+        </span>
+
+        <hr />
+
+        <h3>Sign in using an external authentication service:</h3>
+
+
+        @*DocSection:ExternalAuthView*@
+        @using Microsoft.AspNetCore.Authentication
+        @using Microsoft.AspNetCore.Identity
+        @using Kentico.Membership
+
+        @inject SignInManager<ApplicationUser> SignInManager
+
+        @{
+            @* Gets a collection of the authentication services registered in your application's startup class *@
+            var signInProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            if (signInProviders.Count == 0)
+            {
+                <div>
+                    <p>
+                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                        for details on setting up this ASP.NET application to support logging in via external services.
+                    </p>
+                </div>
+            }
+            else
+            {
+                @* Generates a form with buttons targeting the RequestSignIn action. Optionally pass a redirect URL as a parameter. *@
+                <form asp-controller="ExternalAuthentication" asp-action="RequestExternalSignIn" asp-route-returnurl="http://localhost/LearningKitCore/Account/SignIn" method="post" class="form-horizontal">
+                    <div>
+                        <p>
+                            @foreach (AuthenticationScheme provider in signInProviders)
+                            {
+                                <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                            }
+                        </p>
+                    </div>
+                </form>
+            }
+        }
+        @*EndDocSection:ExternalAuthView*@
+    </div>
+</div>

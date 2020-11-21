@@ -1,0 +1,25 @@
+﻿@model LearningKitCore.Models.OnlineMarketing.NewsletterSubscriptionViewModel
+
+@{
+    ViewBag.Title = "Subscribe to a newsletter";
+}
+
+<h2>Subscribe to a newsletter</h2>
+
+<form asp-controller="NewsletterSubscription" asp-action="Subscribe" method="post">
+    <div class="form-group">
+        <span class="text-dark"><label asp-for="Email"></label></span>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Subscribe" />
+</form>
+
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div asp-validation-summary="All" class="text-danger"></div>
+}
+
+<p>
+    <strong>Note:</strong> This form attempts to subscribe to a newsletter with the "SampleNewsletter" code name. An error will occur if the newsletter does not exist in the connected Xperience database.
+</p>

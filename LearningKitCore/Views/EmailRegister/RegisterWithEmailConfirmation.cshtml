@@ -1,0 +1,59 @@
+﻿@model LearningKitCore.Models.Users.Registration.RegisterViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Register with email confirmation";
+}
+
+<h2>Register with email confirmation</h2>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+
+        <div asp-validation-summary="ModelOnly">
+        </div>
+
+        <form asp-controller="EmailRegister" asp-action="RegisterWithEmailConfirmation" method="post">
+            <div class="form-group">
+                <span><label asp-for="FirstName"></label></span>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="LastName"></label></span>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="UserName"></label></span>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="Email"></label></span>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="Password"></label></span>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="PasswordConfirmation"></label></span>
+                <input asp-for="PasswordConfirmation" class="form-control" />
+                <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+            </div>
+
+            <input type="submit" value="Register" class="btn btn-primary" />
+        </form>
+
+
+    </div>
+    <div class="col-6"></div>
+</div>

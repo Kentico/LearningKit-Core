@@ -1,0 +1,16 @@
+﻿@model LearningKitCore.Models.OnlineMarketing.NewsletterSubscriptionConfirmationViewModel
+
+@{
+    ViewBag.Title = "Subscription Confirmation";
+}
+
+<h2>Subscription confirmation</h2>
+
+@if (Html.ViewData.ModelState.IsValid)
+{
+    <p>You have successfully confirmed your newsletter subscription.</p>
+}
+else
+{
+    <div asp-validation-summary="All"></div> 
+}

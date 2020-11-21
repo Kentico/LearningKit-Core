@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search</h2>
+<ul>
+    <li>
+        <a asp-controller="SmartSearch" asp-action="SearchIndex">Smart search</a>
+    </li>
+    <li>
+        <a asp-controller="AzureSearch">Azure Search</a>
+        <br />
+        ⚠<strong>Note:</strong> An error will ocurr if the connected Xperience database does not contain an Azure search index with the 'dg-store' code name. Refer to the <a href="https://devnet.kentico.com/CMSPages/DocLinkMapper.ashx">Xperience documentation</a> for a full walkthrough implementing this scenario.
+    </li>
+</ul>

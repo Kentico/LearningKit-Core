@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Builders";
+}
+
+<h2>Page builder</h2>
+<ul>
+    <li>
+        <a href="@Url.Content("~/PageBuilder")">Sample page</a> <br />
+        ⚠<strong>Note</strong>: To be able to use the page builder in the Pages application, you need to do the following in your connected Xperience instance:
+        <ol>
+            <li>
+                In the <em>Settings</em> application, configure your site's <em>URLs and SEO -> Routing mode</em> setting to <em>Based on content tree</em>.  In the same category, enable <em>Hide language prefix in default culture URLs</em>.
+            </li>
+            <li>
+                In the <em>Page types</em> application, create a new page type.
+                <ul>
+                    <li>
+                        Set the page type's code name to: <strong>LearningKit.PageBuilderAdvanced</strong> (Namespace: LearningKit, Name: PageBuilderAdvanced).
+                    </li>
+                    <li>
+                        Enable the <em>Page builder</em> and <em>URL</em> features for the page type.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                In the <em>Pages</em> application, create a page using the page type from the previous step.
+                <ul>
+                    <li>
+                        <p>
+                            The default link above opens a page placed directly under the website root, with the following <em>URL slug</em>: <em>PageBuilder</em> (set on the page's <em>General -> URLs</em> tab)
+                        </p>
+                        <p>
+                            All pages created with the <em>LearningKit.PageBuilderAdvanced</em> page type are handled by the <strong>PageBuilderController</strong>
+                            class and use the view file located under <em>~/Views/PageBuilder</em>.
+                        </p>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </li>
+</ul>
+
+<h2>Page templates</h2>
+<ul>
+    <li>
+        <a href="@Url.Content("~/Campaign")">Template-based page</a><br />
+        ⚠<strong>Note:</strong> To create pages based on a template in the Pages application, you need to do the following in your connected Xperience instance:
+        <ol>
+            <li>
+                In the <em>Settings</em> application, configure your site's <em>URLs and SEO -> Routing mode</em> setting to <em>Based on content tree</em>.  In the same category, enable <em>Hide language prefix in default culture URLs</em>.
+            </li>
+            <li>
+                In the <em>Page types</em> application, create a new page type.
+                <ul>
+                    <li>
+                        Set the page type's code name to: <strong>LearningKit.LandingPage</strong> (Namespace: LearningKit, Name: LandingPage).
+                    </li>
+                    <li>
+                        Enable the <em>Page builder</em> and <em>URL</em> features for the page type.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                In the <em>Pages</em> application, create any number of landing pages using the page type from the previous step.
+                <ul>
+                    <li>
+                        The default link above opens a page placed directly under the website root, with the following <em>URL slug</em>: <em>Campaign</em> (set on the page's <em>General -> URLs</em> tab)
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </li>
+</ul>
+
+<h2>Forms</h2>
+<ol>
+    <li>Compose a form in the <strong>Forms</strong> application of the connected Xperience instance.</li>
+    <li>
+        <p>Add the form to a page with the page builder functionality enabled using the <strong>Form</strong> widget.</p>
+        <p>To set up the page builder for this project, follow the instructions in the <strong>Page builder</strong> section above.</p>
+    </li>
+</ol>

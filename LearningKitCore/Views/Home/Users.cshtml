@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>Users and roles</h2>
+<ul>
+    <li>
+        <a asp-controller="Account" asp-action="SignIn">Sign in</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <ul>
+                <li>
+                    Current user: <strong>@User.Identity.Name</strong>
+                </li>
+                <li><a asp-controller="Account" asp-action="EditUser">Change your user details</a></li>
+                <li><a asp-controller="Roles" asp-action="ManageRoles">Manage your roles</a></li>
+                <li><a asp-controller="Roles" asp-action="RestrictedPage">Restricted section</a> (only available for users with the 'KenticoRole' role)</li>
+                <li>
+                    <form asp-controller="Account" asp-action="SignOut">
+                        <input type="submit" value="Sign out" class="btn-outline-primary" />
+                    </form>
+                </li>
+            </ul>
+        }
+    </li>
+    <li><a asp-controller="Register" asp-action="Register">Register</a></li>
+    <li><a asp-controller="EmailRegister" asp-action="RegisterWithEmailConfirmation">Register with email confirmation</a></li>
+    <li>
+        <a asp-controller="RegisterWithConsent" asp-action="Register">Register with consent</a>
+        <br />
+        ⚠<strong>Note:</strong> An error will occur on the 'Register with consent' page if a consent with code name "SampleRegistrationConsent" does not exist in the connected Xperience database.
+    </li>
+</ul>
+
+
+<h2>Data protection</h2>
+<ul>
+    <li>
+        <a asp-controller="CookieLevel" asp-action="Index">Cookie level selector</a>
+    </li>
+    <li>
+        <a asp-controller="TrackingConsent" asp-action="DisplayConsent">Tracking consent</a> 
+        <br />
+        ⚠<strong>Note:</strong> An error will occur if a consent with code name "SampleTrackingConsent" does not exist in the connected Xperience database.
+    </li>
+    <li>
+        <a asp-controller="PrivacyPage" asp-action="Index">Privacy Page</a>
+    </li>
+</ul>

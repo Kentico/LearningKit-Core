@@ -1,0 +1,11 @@
+﻿@addTagHelper Kentico.Content.Web.Mvc.WidgetZoneTagHelper, Kentico.Content.Web.Mvc
+
+@using Kentico.PageBuilder.Web.Mvc
+
+@model ComponentViewModel<CustomSectionProperties>
+
+@* Shows a sample section with a background color specified in the section's configuration dialog *@
+<div style="background-color: @Model.Properties.Color;">
+    @* Renders a widget zone via the widget-zone Tag Helper *@
+    <widget-zone />
+</div>

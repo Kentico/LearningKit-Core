@@ -1,0 +1,16 @@
+﻿{
+  "ConnectionStrings": {
+    "CMSConnectionString": ""
+  },
+  "CMSHashStringSalt": "",
+
+  "AllowedHosts": "*",
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  }
+}

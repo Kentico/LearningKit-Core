@@ -1,0 +1,53 @@
+﻿@model LearningKitCore.Models.PageBuilder.PageBuilderModel
+
+@{
+    ViewBag.Title = "Page with the page builder";
+}
+
+@*DocSection:Using*@
+@using Kentico.PageBuilder.Web.Mvc
+@using Kentico.Web.Mvc
+@*EndDocSection:Using*@
+
+@Html.Kentico().PageBuilderStyles()
+
+<h2>@Model.HeadingText</h2>
+
+<h3>Editable area</h3>
+@*DocSection:EditableArea*@
+<div>
+    @await Html.Kentico().EditableAreaAsync("area1")
+</div>
+@*EndDocSection:EditableArea*@
+
+<h3>Editable area with selected default section</h3>
+@*DocSection:EditableAreaSection*@
+<div>
+    @{
+        var optionsDefaultSection = new EditableAreaOptions
+        {
+            DefaultSectionIdentifier = "LearningKit.Sections.Col5050"
+        };
+    }
+    @await Html.Kentico().EditableAreaAsync("areaWithSection", optionsDefaultSection)
+</div>
+@*EndDocSection:EditableAreaSection*@
+
+<h3>Limited editable area</h3>
+@*DocSection:LimitedEditableArea*@
+<div>
+    @{
+        var optionsLimited = new EditableAreaOptions
+        {
+            AllowedWidgets = new[] { "LearningKit.Widgets.NumberWidget",
+                                     "LearningKit.Widgets.SomeOtherWidget" },
+            AllowedSections = AllowedComponents.ALL
+        };
+    }
+    @await Html.Kentico().EditableAreaAsync("limitedArea", optionsLimited)
+</div>
+@*EndDocSection:LimitedEditableArea*@
+
+@*DocSection:RegisterScripts*@
+@Html.Kentico().PageBuilderScripts()
+@*EndDocSection:RegisterScripts*@

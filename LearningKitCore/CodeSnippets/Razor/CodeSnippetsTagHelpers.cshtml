@@ -1,0 +1,97 @@
+﻿@*DocSection:PageBuilderScriptsTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.PageBuilderScriptsTagHelper, Kentico.Content.Web.Mvc
+
+<page-builder-scripts />
+@*EndDocSection:PageBuilderScriptsTagHelper*@
+
+@*DocSection:PageBuilderStylesTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.PageBuilderStylesTagHelper, Kentico.Content.Web.Mvc
+
+<page-builder-styles />
+@*EndDocSection:PageBuilderStylesTagHelper*@
+
+@*DocSection:EditableAreaTagHelperSimple*@
+@addTagHelper Kentico.Content.Web.Mvc.EditableAreaTagHelper, Kentico.Content.Web.Mvc
+
+<editable-area area-identifier="areaSimple" />
+@*EndDocSection:EditableAreaTagHelperSimple*@
+
+@*DocSection:EditableAreaTagHelperAdvanced*@
+@addTagHelper Kentico.Content.Web.Mvc.EditableAreaTagHelper, Kentico.Content.Web.Mvc
+@using Kentico.PageBuilder.Web.Mvc
+
+@{
+    var options = new EditableAreaOptions
+    {
+        AllowedWidgets = new[] { "LearningKit.Widgets.NumberWidget",
+                                 "LearningKit.Widgets.SomeOtherWidget" },
+        AllowedSections = AllowedComponents.ALL
+    };
+}
+
+<editable-area area-identifier="areaConfigured" area-options="options" />
+@*EndDocSection:EditableAreaTagHelperAdvanced*@
+
+@*DocSection:WidgetZoneTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.WidgetZoneTagHelper, Kentico.Content.Web.Mvc
+
+<widget-zone />
+@*EndDocSection:WidgetZoneTagHelper*@
+
+@*DocSection:PageDataTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.PageDataTagHelper, Kentico.Content.Web.Mvc
+
+<form asp-controller="Controller" asp-action="HandlePost" id="form">
+
+    ...
+
+    <page-data />
+
+    <input type="submit" value="Submit" />
+</form>
+@*EndDocSection:PageDataTagHelper*@
+
+@*DocSection:ComponentPropertiesDataTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.ComponentPropertiesDataTagHelper, Kentico.Content.Web.Mvc
+
+<form asp-controller="Controller" asp-action="HandlePost" id="form">
+
+    ...
+
+    <component-properties-data />
+
+    <input type="submit" value="Submit" />
+</form>
+@*EndDocSection:ComponentPropertiesDataTagHelper*@
+
+@*DocSection:StandaloneWidgetTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.StandaloneWidgetTagHelper, Kentico.Content.Web.Mvc
+@using Kentico.Forms.Web.Mvc.Widgets
+@using Kentico.Content.Web.Mvc
+
+@{
+    var widgetProperties = new FormWidgetProperties()
+    {
+        SelectedForm = "FormCodeName"
+    };
+}
+
+@* Renders the system's default Form widget *@
+<standalone-widget widget-type-identifier="@SystemComponentIdentifiers.FORM_WIDGET_IDENTIFIER" widget-properties="widgetProperties" />
+@*EndDocSection:StandaloneWidgetTagHelper*@
+
+@*DocSection:NestedWidgetTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.NestedWidgetTagHelper, Kentico.Content.Web.Mvc
+
+@* In this example, the extended widget uses an extended FormWidgetProperties class *@
+@model ComponentViewModel<ExtendedFormWidgetProperties>
+
+@* Renders the system's default Form widget as the nested widget *@
+<nested-widget widget-type-identifier="@SystemComponentIdentifiers.FORM_WIDGET_IDENTIFIER" widget-properties="Model.Properties" />
+@*EndDocSection:NestedWidgetTagHelper*@
+
+@*DocSection:FormZoneTagHelper*@
+@addTagHelper Kentico.Content.Web.Mvc.FormZoneTagHelper, Kentico.Content.Web.Mvc
+
+<form-zone />
+@*EndDocSection:FormZoneTagHelper*@

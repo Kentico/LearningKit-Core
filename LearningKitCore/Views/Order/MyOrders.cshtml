@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "List of past orders";
+}
+
+@using LearningKitCore.Models.ECommerce.Checkout
+@*DocSection:ListOrders*@
+@model IEnumerable<OrderViewModel>
+
+@if (Model.Any())
+{
+    <h3>Your orders:</h3>
+    @* Ensures basic formatting of the displayed information. *@
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        @* Iterates over all orders in the collection and displays their properties. *@
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @order.OrderID
+                </td>
+                <td>
+                    @order.OrderDate
+                </td>
+                <td>
+                    @(order.OrderStatusDisplayName)
+                </td>
+                <td>
+                    @String.Format(order.CurrencyFormatString, order.OrderTotalPrice)
+                </td>
+                <td>
+                    <form asp-controller="Order" asp-action="Reorder" method="post">
+                        <input type="hidden" name="OrderId" value="@order.OrderID" />
+                        <input type="submit" value="Reorder" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+@*EndDocSection:ListOrders*@

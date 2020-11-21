@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Azure Search";
+}
+@*DocSection:AzureSearchView*@
+@model LearningKitCore.Models.Search.AzureSearch.AzureSearchViewModel
+
+<h2>Azure Search</h2>
+
+    @* Renders the search interface *@
+    <form asp-controller="AzureSearch" asp-action="Search" method="post">
+        <div class="form-group">
+            <span class="text-dark"><label>Search</label></span>
+            <input asp-for="@Model.SearchString" class="form-control" />
+            <input type="submit" value="Search" class="btn btn-light" id="search">
+        </div>
+          <div class="row">
+        <div class="form-group col-sm">
+        <p><strong>Country</strong></p>
+            <ul>
+                @for (int i = 0; i < Model.FilterCountry.Count; i++)
+                {
+                    <li>                                                 
+                        <input type="checkbox" asp-for="@Model.FilterCountry[i].Selected"  />
+                        <label> @Model.FilterCountry[i].Name</label>
+                        <input type="hidden" asp-for="@Model.FilterCountry[i].Value" />
+                        <input type="hidden" asp-for="@Model.FilterCountry[i].Name" />               
+                    </li>                
+                }
+            </ul>
+        </div>
+        
+        <div class="form-group col-sm">
+        <p><strong>Farm</strong></p>
+            <ul>
+            @for (int i = 0; i < Model.FilterFarm.Count; i++)
+            { 
+                <li>                                           
+                    <input type="checkbox" asp-for="@Model.FilterFarm[i].Selected"  />
+                    <label> @Model.FilterFarm[i].Name</label>
+                    <input type="hidden" asp-for="@Model.FilterFarm[i].Value" />
+                    <input type="hidden" asp-for="@Model.FilterFarm[i].Name" />              
+                </li>
+            }
+            </ul>       
+        </div>
+        </div>
+    </form>  
+<div class="container">
+<h2><strong>Search Results</strong></h2>
+
+    @* Renders the search results *@
+    @if (Model.SearchResults == null)
+    {
+        @Html.Raw($"No results found for {Model.SearchString}.")
+    }
+    else
+    {
+        for (int i = 0; i < Model.SearchResults.Count; i++)
+        {
+            if (Model.SearchResults[i].Highlights == null)
+            {
+                <h3>@Html.Raw(Model.SearchResults[i].DocumentTitle)</h3>
+                @Html.Raw(Model.SearchResults[i].DocumentShortDescription)
+            }
+            else
+            {
+                string highlightedFragments = String.Join(" || ", Model.SearchResults[i].Highlights.Values.Select(value => String.Join(" ", value)));
+                <h3>@Html.Raw(Model.SearchResults[i].DocumentTitle)</h3>
+                @Html.Raw(highlightedFragments)
+            }
+        }
+    }
+</div>
+@*EndDocSection:AzureSearchView*@

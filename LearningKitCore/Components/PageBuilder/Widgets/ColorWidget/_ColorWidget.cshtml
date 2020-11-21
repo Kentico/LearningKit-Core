@@ -1,0 +1,25 @@
+﻿@using Kentico.PageBuilder.Web.Mvc
+
+@using LearningKitCore.Components.PageBuilder.Widgets.ColorWidget
+@using LearningKitCore.Components.PageBuilder.InlineEditors.ColorEditor
+
+@inject IPageBuilderDataContextRetriever pageBuilderContext
+
+@model ComponentViewModel<ColorWidgetProperties>
+
+<div style="background-color: @(Model.Properties.Color)">
+    <h3>This is a colorful widget</h3>
+</div>
+
+@* Shows an inline editor when rendered in the edit mode of the Pages application in Xperience *@
+@if (pageBuilderContext.Retrieve().EditMode)
+{
+    var colorEditorModel = new ColorEditorModel
+    {
+        @* Use the nameof() operator to get the name of the widget property from the widget property model *@
+        PropertyName = nameof(ColorWidgetProperties.Color),
+        Color = Model.Properties.Color
+    };
+
+    <partial name="~/Components/PageBuilder/InlineEditors/ColorEditor/_ColorEditor.cshtml" model="colorEditorModel" />
+}

@@ -1,0 +1,67 @@
+﻿@using LearningKitCore.Components.Widgets
+@*DocSection:WidgetViewModel*@
+@using Kentico.PageBuilder.Web.Mvc
+
+@model ComponentViewModel<CustomWidgetProperties>
+@*EndDocSection:WidgetViewModel*@
+
+<script type="text/javascript">
+    @*DocSection:WidgetScriptsInit*@
+    if (document.readyState === "loading") {
+        // Calls the function during the 'DOMContentLoaded' event, after the HTML document has been completely loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            customFunction();
+        });
+    } else {
+        // Calls the function directly in cases where the widget is rendered dynamically after 'DOMContentLoaded' has occurred
+        customFunction();
+    }
+    @*EndDocSection:WidgetScriptsInit*@
+</script>
+
+@* This is a dummy view file with code snippets used in the Xperience documentation. *@
+@* These code snippets do NOT take any part in the runnable LearningKit project. *@
+@{
+    var model = new
+    {
+        SKUID = 1,
+        SKUName = "Name"
+    };
+}
+
+@* E-commerce *@
+
+@*DocSection:ItemDetailActionLink*@
+@Html.ActionLink(model.SKUName, "ItemDetail", new { skuId = model.SKUID })
+@*EndDocSection:ItemDetailActionLink*@
+
+@*DocSection:ItemDetailUrlLink*@
+<a href="@Url.Action("ItemDetail", new { skuId = model.SKUID })">link text</a>
+@*EndDocSection:ItemDetailUrlLink*@
+
+@*DocSection:VariantDisplayImg*@
+<img id="js-product-image" ... />
+@*EndDocSection:VariantDisplayImg*@
+
+@* Content personalization *@
+@*DocSection:ContactGroupPersonalization*@
+@using CMS.ContactManagement
+
+@{
+    // Gets the current contact
+    ContactInfo currentContact = ContactManagementContext.GetCurrentContact();
+}
+
+@if (currentContact != null)
+{
+    // Displays personalized content for contacts belonging to the "YoungCustomers" contact group
+    if (currentContact.IsInContactGroup("YoungCustomers"))
+    {
+        <text>Hiya @currentContact.ContactFirstName</text>
+    }
+    else
+    {
+        <text>Hello</text>
+    }
+}
+@*EndDocSection:ContactGroupPersonalization*@

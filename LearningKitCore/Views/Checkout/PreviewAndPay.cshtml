@@ -1,0 +1,67 @@
+﻿@model LearningKitCore.Models.ECommerce.Checkout.PreviewAndPayViewModel
+@using LearningKitCore.Models.ECommerce.Checkout
+
+
+@{
+    ViewBag.Title = "Preview step";
+}
+
+@*DocSection:DeliveryDetailsView*@
+@* Displays the customer details. *@
+<div id="customerDetails">
+    <h2>Customer Details</h2>
+    <div class="form-group">
+        <label asp-for="DeliveryDetails.Customer.FirstName"></label>
+        <input asp-for="DeliveryDetails.Customer.FirstName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DeliveryDetails.Customer.LastName"></label>
+        <input asp-for="DeliveryDetails.Customer.LastName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DeliveryDetails.Customer.Company"></label>
+        @if (!(String.IsNullOrEmpty((string)Model.DeliveryDetails.Customer.Company))) {
+            <input asp-for="DeliveryDetails.Customer.Company" />
+        } else { Html.Raw("none"); }
+    </div>
+</div>
+
+@* Lists all products from the shopping cart. *@
+<div id="cartContent">
+    <h3>Ordered products</h3>
+    <ul>
+        @* Loops through all shopping cart items. *@
+        @foreach (ShoppingCartItemViewModel cartItem in Model.Cart.CartItems)
+        {
+            @* Displays the shopping cart item's properties. *@
+            <li>
+                @cartItem.CartItemUnits&times; @cartItem.SKUName ... @String.Format(Model.Cart.CurrencyFormatString, cartItem.TotalPrice)
+            </li>
+            }
+    </ul>
+</div>
+
+@* Displays additional order details. *@
+<div id="shoppingCartTotals">
+    <p>Selected shipping method: @Model.DeliveryDetails.ShippingOption.ShippingOptionDisplayName</p>
+    <p>Total tax: @String.Format(Model.Cart.CurrencyFormatString, Model.Cart.TotalTax)</p>
+    <p>Total shipping: @String.Format(Model.Cart.CurrencyFormatString, Model.Cart.TotalShipping)</p>
+    <p>Total (incl. tax): @String.Format(Model.Cart.CurrencyFormatString, Model.Cart.GrandTotal)</p>
+</div>
+
+@* Invokes a POST action finalizing order creation. *@
+<form asp-action="PreviewAndPay" asp-controller="Checkout" method="post">
+    <div id="paymentMethod" class="form-group">  
+        <label asp-for="PaymentMethod.PaymentMethodID"></label>
+        <select asp-for="PaymentMethod.PaymentMethodID" asp-items="Model.PaymentMethod.PaymentMethods"></select>
+    </div>
+
+    <input type="submit" value="Create an order" />
+</form>
+@*EndDocSection:DeliveryDetailsView*@
+
+<p>
+    <a asp-action="DeliveryDetails" asp-controller="Checkout">>Back to the customer details step</a>
+    <br />
+    <a asp-action="DeliveryDetailsAddressSelector" asp-controller="Checkout">>Back to the customer details step (with address selector)</a>
+</p>

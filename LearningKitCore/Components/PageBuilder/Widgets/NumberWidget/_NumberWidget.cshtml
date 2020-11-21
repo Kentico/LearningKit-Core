@@ -1,0 +1,25 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using Kentico.PageBuilder.Web.Mvc
+
+@using LearningKitCore.Components.PageBuilder.InlineEditors.NumberEditor
+@using LearningKitCore.Components.PageBuilder.Widgets.NumberWidget
+
+@inject IPageBuilderDataContextRetriever pageBuilderContext
+
+@model ComponentViewModel<NumberWidgetProperties>
+
+<h3 style="background-color: #dddddd;">The number you chose for today is: @Model.Properties.Number</h3>
+
+@* Shows an inline editor when rendered in the edit mode of the Pages application in Xperience *@
+@if (pageBuilderContext.Retrieve().EditMode)
+{
+    var inlineEditorModel = new NumberEditorModel
+    {
+        @* Use the nameof() operator to get the name of the edited property from the widget property model *@
+        PropertyName = nameof(NumberWidgetProperties.Number),
+        Number = @Model.Properties.Number
+    };
+
+    <partial name="~/Components/PageBuilder/InlineEditors/NumberEditor/_NumberEditor.cshtml" model="inlineEditorModel" />
+}

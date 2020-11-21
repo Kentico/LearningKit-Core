@@ -1,0 +1,17 @@
+﻿@addTagHelper *, Kentico.Content.Web.Mvc
+
+<!DOCTYPE html>
+@* This is a sample layout for use with page templates. This layout is not
+    used anywhere on this site and is included only for demonstration purposes. *@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <title>@ViewBag.Title - My site</title>
+    <page-builder-styles />
+</head>
+<body>
+    @RenderBody()
+    <page-builder-scripts />
+</body>
+</html>

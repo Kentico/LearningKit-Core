@@ -1,0 +1,42 @@
+﻿@model LearningKitCore.Models.DataProtection.PrivacyPage.ConsentListingModel
+
+@{
+    ViewBag.Title = "Privacy page";
+}
+
+<h2>Privacy page</h2>
+<p>This page displays all consents accepted by the current visitor.</p>
+<h3>Your accepted consents</h3>
+
+@if (Model.Consents.Any())
+{
+    <table border="1">
+        <tr>
+            <th>Consent ID</th>
+            <th>Consent display name</th>
+            <th>Consent short text</th>
+            <th>Consent details</th>
+            <th>Revoke button</th>
+        </tr>
+        @foreach (var item in Model.Consents)
+        {
+            <tr style="text-align:center">
+                <td>@item.Id</td>
+                <td>@item.DisplayName</td>
+                <td>@Html.Raw(item.GetConsentText("en-US").ShortText)</td>
+                <td>
+                    <a asp-route-consentId="@item.Id" asp-controller="PrivacyPage" asp-action="ConsentDetails">View details</a>
+                </td>
+                <td>
+                    <form asp-controller="PrivacyPage" asp-action="Revoke" asp-route-consentId="@item.Id" method="post">
+                        <input type="submit" value="Revoke" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>You have not given an agreement for any consents.</p>
+}

@@ -1,0 +1,76 @@
+﻿@model LearningKitCore.Models.ECommerce.Checkout.DeliveryDetailsViewModel
+
+@{
+    ViewBag.Title = "Customer details";
+}
+
+
+<h2>Customer details step</h2>
+<form asp-action="DeliveryDetails" asp-controller="Checkout" method="post">
+    <div id="customerDetails">
+        <h3>Customer details</h3>
+        @Html.EditorFor(m => m.Customer)
+    </div>
+
+    <div id="billingAddress" data-addresstype='BillingAddress' data-fields='["Line1", "Line2", "City", "PostalCode"]'>
+        <h3>Billing address</h3>
+        @*DocSection:AddressSelector*@
+        <div class="js-address-selector-div" data-statelistaction='@Url.Action("CustomerAddress", "Checkout")'>
+
+            <label asp-for="BillingAddress.AddressID"></label>
+            @Html.DropDownListFor(m => m.BillingAddress.AddressID, Model.BillingAddress.Addresses, "(new)", new { @class = "js-address-selector" })
+            
+            <div class="message message-error">
+                <span asp-validation-for="BillingAddress.AddressID"></span>
+            </div>
+        </div>
+        @*EndDocSection:AddressSelector*@
+        <div class="form-group">
+            <label asp-for="BillingAddress.Line1"></label>
+            <input asp-for="BillingAddress.Line1" />
+            <span asp-validation-for="BillingAddress.Line1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BillingAddress.Line2"></label>
+            <input asp-for="BillingAddress.Line2" />
+            <span asp-validation-for="BillingAddress.Line2" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BillingAddress.City"></label>
+            <input asp-for="BillingAddress.City" />
+            <span asp-validation-for="BillingAddress.City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BillingAddress.PostalCode"></label>
+            <input asp-for="BillingAddress.PostalCode" />
+            <span asp-validation-for="BillingAddress.PostalCode" class="text-danger"></span>
+        </div>
+        <div class="js-country-state-selector form-group" data-statelistaction='@Url.Action("CountryStates", "Checkout")' data-countryselectedid='@Model.BillingAddress.CountryID' data-stateselectedid='@Model.BillingAddress.StateID' data-countryfield='CountryID' data-statefield='StateID'>
+            <label asp-for="BillingAddress.CountryID"></label>
+            <select asp-for="BillingAddress.CountryID" asp-items="Model.BillingAddress.Countries" class="js-country-selector"></select>
+            <div class="js-state-selector-container form-group">
+                <label asp-for="BillingAddress.StateID"></label>
+                <select asp-for="BillingAddress.StateID" asp-items="Enumerable.Empty<SelectListItem>()" class="js-state-selector"></select>
+            </div>
+        </div>
+    </div>
+
+    <div id="shippingOption">
+        <h3>Shipping option</h3>
+        @Html.LabelFor(m => m.ShippingOption.ShippingOptionID)
+        @Html.DropDownListFor(m => m.ShippingOption.ShippingOptionID, Model.ShippingOption.ShippingOptions)
+    </div>
+
+    <input type="submit" value="Continue" />
+</form>
+<p>
+    <a asp-controller="ShoppingCart">> Back to the shopping cart</a>
+</p>
+
+@section Scripts
+{
+<script src="~/Content/Scripts/countryStateSelector.js"></script>
+@*DocSection:AddressJavaScript*@
+<script src="~/Content/Scripts/addressSelector.js"></script>
+@*EndDocSection:AddressJavaScript*@
+}

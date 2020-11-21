@@ -1,0 +1,17 @@
+﻿@model LearningKitCore.Models.DataProtection.TrackingConsent.TrackingConsentViewModel
+
+<p>
+    @Html.Raw(Model.ShortText)
+</p>
+@if (Model.IsAgreed)
+{
+    <form asp-controller="TrackingConsent" asp-action="Revoke" method="post">
+        <input type="submit" value="Revoke" />
+    </form>
+}
+else
+{
+    <form asp-controller="TrackingConsent" asp-action="Accept" method="post">
+        <input type="submit" value="Accept" />
+    </form>
+}

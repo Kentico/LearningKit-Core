@@ -1,0 +1,54 @@
+﻿@model LearningKitCore.Models.ECommerce.ProductFilters.ProductFilterViewModel
+@using LearningKitCore.Models.ECommerce.Products
+
+@{
+    ViewBag.Title = "Product filter";
+}
+
+<h2>Product listing of the LearningProductType with filtering</h2>
+
+<p>
+    <a asp-action="FilterPageProperty">> Filter based on a page property (LPTWithFeature)</a>
+    <br />
+    <a asp-action="FilterForeignProperty">> Filter based on a foreign SKU property (manufacturers)</a>
+
+</p>
+
+@using (Html.BeginForm())
+{
+    <h3>SKU property &ndash; Price range (decimal)</h3>
+    <input asp-for="PriceFrom" />
+    <input asp-for="PriceTo" />
+    <input type="submit" value="Filter" />
+}
+
+<hr />
+
+@foreach (ProductListItemViewModel product in Model.FilteredProducts)
+{
+    <a href="@product.ProductUrl.AbsoluteUrl"><h4>@product.Name</h4></a>
+
+    if (!string.IsNullOrEmpty(product.PublicStatusName))
+    {
+        <span>@product.PublicStatusName</span>
+    }
+
+    if (!string.IsNullOrEmpty(product.ImagePath))
+    {
+        <img src="@product.ImagePath" alt="@product.Name">
+    }
+
+    <div>
+        @if (!product.Available)
+        {
+            <span>Out of stock</span>
+        }
+
+        <span>@String.Format(product.PriceModel.CurrencyFormatString, product.PriceModel.Price)</span>
+
+        @if (product.PriceModel.ListPrice > product.PriceModel.Price)
+        {
+            <s>@String.Format(product.PriceModel.CurrencyFormatString, product.PriceModel.ListPrice)</s>
+        }
+    </div>
+}

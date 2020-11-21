@@ -1,0 +1,11 @@
+﻿@using Kentico.Forms.Web.Mvc
+@using LearningKitCore.Components.FormBuilder.FormComponents.CustomDropDownFormComponent
+
+@model CustomDropDownComponent
+
+@{
+    var htmlAttributes = ViewData.Kentico().GetEditorHtmlAttributes();
+}
+
+@* Invoking a Get operation on the component's 'Items' property executes the GetItems method. *@
+@Html.DropDownListFor(x => x.SelectedValue, Model.HtmlOptions.ToSelectListItems(), null, htmlAttributes)

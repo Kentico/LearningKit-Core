@@ -1,0 +1,9 @@
+﻿@model LearningKitCore.Components.PageBuilder.PersonalizationConditions.HasGivenConsent.HasGivenConsentViewModel
+
+<form asp-controller="HasGivenConsent" asp-action="Validate">
+    <label asp-for="ConsentCodeName"></label> 
+    <br />
+    <input asp-for="ConsentCodeName" />
+    <br />
+    <span asp-validation-for="ConsentCodeName"></span>
+</form>

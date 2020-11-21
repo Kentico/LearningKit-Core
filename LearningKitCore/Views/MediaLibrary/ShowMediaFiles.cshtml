@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Media library file listing";
+}
+
+@using LearningKitCore.Models.MediaLibrary
+
+@*DocSection:ShowMediaFiles*@
+@model IEnumerable<MediaFileViewModel>
+
+
+<h2>Media library file listing</h2>
+
+@foreach (MediaFileViewModel mediaFile in Model)
+{
+    @* Gets an application absolute URL for the media file *@
+    string url = Url.Content(mediaFile.RelativeUrl);
+
+    <img src="@url" alt="@mediaFile.FileTitle" />
+}
+@*EndDocSection:ShowMediaFiles*@

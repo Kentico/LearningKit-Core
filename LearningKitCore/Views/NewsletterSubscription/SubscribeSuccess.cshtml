@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Subscription Success";
+}
+
+@model bool
+
+<h2>Newsletter subscription successful</h2>
+
+@if (Model)
+{
+    <p>You have subscribed to the newsletter. You need to confirm your subscription via email before it becomes active.</p>
+}
+else
+{
+    <p>You have successfully subscribed to the newsletter.</p>
+}

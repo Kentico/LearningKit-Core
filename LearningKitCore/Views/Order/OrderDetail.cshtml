@@ -1,0 +1,44 @@
+﻿@model LearningKitCore.Models.ECommerce.Checkout.OrderViewModel
+
+@{
+    ViewBag.Title = "Order detail";
+}
+
+<h2>Display an order detail</h2>
+
+<p>
+    If you enter an order's ID to the text box and click the button, the order information will be displayed.
+</p>
+
+@*DocSection:OrderDetailView*@
+@* Renders a form field for entering order IDs. *@
+<form asp-controller="Order" asp-action="OrderDetail" method="post">
+    <input type="text" name="OrderId" />
+    <input type="submit" name="DisplayOrder" value="Display order" />
+</form>
+
+@if (Model != null)
+{
+    <h2>Order details</h2>
+    @* Displays order details. *@
+    <ul>
+        <li>Order number: @Model.OrderID</li>
+        <li>Status ID: @Model.OrderStatusID</li>
+        <li>Is paid: @Model.OrderIsPaid</li>
+        @if (Model.OrderPaymentResult != null)
+        {
+            <li>Payment method name: @Model.OrderPaymentResult.PaymentMethodName</li>
+            <li>Was payment successful: @Model.OrderPaymentResult.PaymentIsCompleted</li>
+        }
+        <li>Total price: @String.Format(Model.CurrencyFormatString, Model.OrderTotalPrice)</li>
+    </ul>
+    @* If the order is not paid for, renders a button invoking the 'MarkOrderAsPaid' action that marks the order as paid. *@
+    if (!Model.OrderIsPaid)
+    {        
+        <form asp-controller="Order" asp-action="MarkOrderAsPaid">
+            <input type="hidden" asp-for="OrderID" />
+            <input type="submit" name="MarkOrderAsPaid" value="Mark order as paid" />
+        </form>       
+    }
+}
+@*EndDocSection:OrderDetailView*@

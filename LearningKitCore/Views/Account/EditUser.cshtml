@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "EditUser";
+}
+
+@model LearningKitCore.Models.Users.Account.EditUserAccountViewModel
+
+
+
+<section class="row justify-content-center">
+    <div class="col-5">
+        <h2>User details</h2>
+
+        <form asp-controller="Account" asp-action="EditUser">
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="User.UserName"></label></span>
+                <input asp-for="User.UserName" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="User.FirstName"></label></span>
+                <input asp-for="User.FirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <span class="text-dark"><label asp-for="User.LastName"></label></span>
+                <input asp-for="User.LastName" class="form-control" />
+            </div>
+            <input type="submit" value="Update" class="btn btn-light">
+        </form>
+    </div>
+
+
+    <div class="col-5">
+        @*DocSection:UserAvatarView*@
+        @using Kentico.Membership.Web.Mvc
+        <h2>User Avatar</h2>
+        <div class="row">
+            @* Generates a link to a user's avatar (or a default one if specified and a user avatar is not found).
+                Note that the properties constraining avatar dimensions do not work for default avatars. *@
+            <img src="@Url.Kentico().AvatarUrl(Model.User.UserName, maxSideSize: 500, pathToDefaultAvatar: "~/Images/default-avatar.png")" />
+
+        </div>
+
+        <br />
+
+        <div class="row ">
+            <div class="col-2">
+                <input type="button" onclick="document.getElementById('avatarUpload').click()" value="Change avatar" class="btn btn-primary" />
+
+
+                @* Displays an error message in case the user uploaded a file with an unsupported file extension.
+                    Supported file extensions can be configured in Settings -> System -> Files -> Upload extensions in the Administration interface. *@
+                @if (Model.AvatarUpdateFailed)
+                {
+                    <span class="text-danger">Please upload a valid image file.</span>
+
+                }
+
+            </div>
+            <div class="col-2"></div>
+            <div class="col-2">
+                <form asp-controller="Account" asp-action="ChangeAvatar" method="post" enctype="multipart/form-data" id="avatarUploadForm" style="display:none">
+                    <input name="avatarUpload" type="file" id="avatarUpload" value="" accept="image/*" onchange="document.getElementById('avatarUploadForm').submit()" />
+                </form>
+                @*EndDocSection:UserAvatarView*@
+                <form asp-action="DeleteAvatar" asp-controller="Account" method="post">
+                    <input name="userId" value="@Model.User.Id" type="hidden" id="userId" />
+                    <input type="submit" value="Delete avatar" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
