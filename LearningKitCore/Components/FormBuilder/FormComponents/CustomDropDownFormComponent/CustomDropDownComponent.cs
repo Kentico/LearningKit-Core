@@ -9,7 +9,11 @@ using Kentico.Web.Mvc;
 using LearningKitCore.Components.FormBuilder.FormComponents.CustomDropDownFormComponent;
 
 
-[assembly: RegisterFormComponent(CustomDropDownComponent.IDENTIFIER, typeof(CustomDropDownComponent), "Drop-down with custom data", IconClass = "icon-menu")]
+[assembly: RegisterFormComponent(CustomDropDownComponent.IDENTIFIER,
+                                 typeof(CustomDropDownComponent),
+                                 "Drop-down with custom data",
+                                 IconClass = "icon-menu",
+                                 ViewName = "~/Components/FormBuilder/FormComponents/CustomDropDownFormComponent/_CustomDropDownComponent.cshtml")]
 
 namespace LearningKitCore.Components.FormBuilder.FormComponents.CustomDropDownFormComponent
 {

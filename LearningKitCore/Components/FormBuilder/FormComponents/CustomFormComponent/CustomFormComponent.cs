@@ -4,7 +4,12 @@ using LearningKitCore.Components.FormBuilder.FormComponents.CustomFormComponent;
 
 //DocSection:FormComponentRegistration
 // Registers a form component for use in the form builder
-[assembly: RegisterFormComponent(CustomFormComponent.IDENTIFIER, typeof(CustomFormComponent), "Custom component", Description = "This is a custom form component.", IconClass = "icon-newspaper")]
+[assembly: RegisterFormComponent(CustomFormComponent.IDENTIFIER,
+                                 typeof(CustomFormComponent),
+                                 "Custom component",
+                                 Description = "This is a custom form component.",
+                                 IconClass = "icon-newspaper",
+                                 ViewName = "~/Components/FormBuilder/FormComponents/CustomFormComponent/_CustomFormComponent.cshtml")]
 //EndDocSection:FormComponentRegistration
 
 namespace LearningKitCore.Components.FormBuilder.FormComponents.CustomFormComponent

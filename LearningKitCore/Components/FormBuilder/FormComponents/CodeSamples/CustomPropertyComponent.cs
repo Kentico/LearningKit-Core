@@ -8,7 +8,12 @@ using Kentico.Forms.Web.Mvc;
 using LearningKitCore.Components.FormBuilder.FormComponents.CodeSamples;
 
 
-[assembly: RegisterFormComponent(CustomPropertyComponent.IDENTIFIER, typeof(CustomPropertyComponent), "Custom text input", Description = "Custom single-line text input", IconClass = "icon-l-text")]
+[assembly: RegisterFormComponent(CustomPropertyComponent.IDENTIFIER,
+                                 typeof(CustomPropertyComponent),
+                                 "Custom text input",
+                                 Description = "Custom single-line text input",
+                                 IconClass = "icon-l-text",
+                                 ViewName = "~/Components/FormBuilder/FormComponents/CodeSamples/_CustomPropertyComponent.cshtml")]
 
 namespace LearningKitCore.Components.FormBuilder.FormComponents.CodeSamples
 {

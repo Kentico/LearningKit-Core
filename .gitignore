@@ -1,6 +1,7 @@
-﻿LearningKitCore\App_Data\
-LearningKitCore\appsettings.json
-LearningKitCore\node_modules
-LearningKitCore\bin
-LearningKitCore\obj
-LearningKitCore\*.vs
+﻿LearningKitCore/App_Data/
+LearningKitCore/appsettings.json
+LearningKitCore/node_modules/
+LearningKitCore/bin/
+LearningKitCore/obj/
+LearningKitCore/*.vs
+LearningKitCore/*.csproj.user
