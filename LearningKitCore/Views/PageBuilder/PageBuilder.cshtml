@@ -20,6 +20,16 @@
 </div>
 @*EndDocSection:EditableArea*@
 
+@*DocSection:EditableAreaCachingEnabled*@
+<div>
+    @{
+        // Sets the sliding expiration for cached widgets to two minutes
+        var options = new EditableAreaOptions() { AllowWidgetOutputCache = true, WidgetOutputCacheExpiresSliding = TimeSpan.FromMinutes(2) };
+    }
+    @await Html.Kentico().EditableAreaAsync("area1", options)
+</div>
+@*EndDocSection:EditableAreaCachingEnabled*@
+
 <h3>Editable area with selected default section</h3>
 @*DocSection:EditableAreaSection*@
 <div>

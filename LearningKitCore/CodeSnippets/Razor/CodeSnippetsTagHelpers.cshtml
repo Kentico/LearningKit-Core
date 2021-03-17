@@ -32,6 +32,20 @@
 <editable-area area-identifier="areaConfigured" area-options="options" />
 @*EndDocSection:EditableAreaTagHelperAdvanced*@
 
+@*DocSection:EditableAreaCacheConfiguration*@
+@* widget-output-cache-expires-on *@
+@* Sets the cached entry to expire on 5:02 PM on January 29, 2025. If the specified date is in the past, nothing gets cached. *@
+<editable-area area-identifier="editableArea" area-widget-output-cache="true" widget-output-cache-expires-on="@new DateTime(2025,1,29,17,02,0)" />
+
+@* widget-output-cache-expires-after *@
+@* Contents are evicted after five minutes and cached again on subsequent requests. *@
+<editable-area area-identifier="editableArea" area-widget-output-cache="true" widget-output-cache-expires-after="@TimeSpan.FromSeconds(300)" />
+
+@* widget-output-cache-expires-sliding *@
+@* Cached content is evicted if not accessed again within 120 seconds of the initial request. *@
+<editable-area area-identifier="editableArea" area-widget-output-cache="true" widget-output-cache-expires-sliding="@TimeSpan.FromSeconds(120)" />
+@*EndDocSection:EditableAreaCacheConfiguration*@
+
 @*DocSection:WidgetZoneTagHelper*@
 @addTagHelper Kentico.Content.Web.Mvc.WidgetZoneTagHelper, Kentico.Content.Web.Mvc
 
@@ -85,7 +99,6 @@
 
 @* In this example, the extended widget uses an extended FormWidgetProperties class *@
 @model ComponentViewModel<ExtendedFormWidgetProperties>
-
 @* Renders the system's default Form widget as the nested widget *@
 <nested-widget widget-type-identifier="@SystemComponentIdentifiers.FORM_WIDGET_IDENTIFIER" widget-properties="Model.Properties" />
 @*EndDocSection:NestedWidgetTagHelper*@
@@ -95,3 +108,19 @@
 
 <form-zone />
 @*EndDocSection:FormZoneTagHelper*@
+
+@*DocSection:CacheDependencyTagHelper*@
+@addTagHelper Kentico.Web.Mvc.Caching.CacheDependencyTagHelper, Kentico.Web.Mvc
+
+@{
+    var userCacheKeys = new[] { "cms.user|all" };
+
+    var enabled = false;
+}
+<cache enabled="@enabled">
+    @* Clears the cached data whenever a user object is modified *@
+    <cache-dependency cache-keys="@userCacheKeys" enabled="@enabled" />
+
+    Time: @DateTime.Now
+</cache>
+@*EndDocSection:CacheDependencyTagHelper*@

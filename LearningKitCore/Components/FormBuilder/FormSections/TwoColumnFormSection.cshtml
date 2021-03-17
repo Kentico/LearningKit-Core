@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿@using Kentico.Web.Mvc
+@using Kentico.Forms.Web.Mvc
 
-namespace LearningKitCore.Components.FormSections
-{
-    public class TwoColumnFormSection
-    {
-    }
-}
+<div>
+    <div style="float:left; width:50%;">
+        @await Html.Kentico().FormZoneAsync()
+    </div>
+    <div style="float:left; width:50%;">
+        @await Html.Kentico().FormZoneAsync()
+    </div>
+    <div style="clear:both;" />
+</div>

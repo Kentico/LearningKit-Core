@@ -1,4 +1,6 @@
-﻿LearningKitCore/App_Data/
+﻿.vs/
+
+LearningKitCore/App_Data/
 LearningKitCore/appsettings.json
 LearningKitCore/node_modules/
 LearningKitCore/bin/
