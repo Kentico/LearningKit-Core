@@ -3,16 +3,18 @@ using Kentico.PageBuilder.Web.Mvc;
 
 using LearningKitCore.Components.PageBuilder.Widgets.ColorWidget;
 using LearningKitCore.Components.PageBuilder.Widgets.NumberWidget;
+using LearningKitCore.Components.FormBuilder.FormSections.TitledSection;
 
 // ================================= Form builder registrations ====================================
 
-[assembly: RegisterFormSection("MyCompany.FormSections.CustomSection", 
+[assembly: RegisterFormSection("LearningKit.FormSections.CustomSection", 
                                "Custom section",
                                customViewName: "~/Components/FormBuilder/FormSections/CustomFormSection.cshtml")]
 
-[assembly: RegisterFormSection("MyCompany.FormSections.TwoColumnSection", 
-                               "Two columns",
-                               customViewName: "~/Components/FormBuilder/FormSections/TwoColumnFormSection.cshtml")]
+[assembly: RegisterFormSection("LearningKit.FormSections.TitledSection", 
+                               "Titled section",
+                               customViewName: "~/Components/FormBuilder/FormSections/TitledSection/TitledSection.cshtml",
+                               PropertiesType = typeof(TitledSectionProperties))]
 
 // ================================= Page builder registrations ====================================
 

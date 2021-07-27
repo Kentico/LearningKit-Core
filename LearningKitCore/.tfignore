@@ -1,0 +1,5 @@
+\app_offline.htm
+\App_Data\*
+\CMSResources\*
+\appsettings.json
+\wwwroot\Kentico\*

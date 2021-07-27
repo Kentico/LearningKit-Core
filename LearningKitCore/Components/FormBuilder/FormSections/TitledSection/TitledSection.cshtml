@@ -1,0 +1,17 @@
+﻿@using LearningKitCore.Components.FormBuilder.FormSections.TitledSection
+
+@*DocSection:TitledFormSectionView*@
+@using Kentico.Forms.Web.Mvc
+@using Kentico.Web.Mvc
+
+@model FormSectionViewModel<TitledSectionProperties>
+
+@if (!string.IsNullOrEmpty(Model?.Properties?.Title))
+{
+    <h2>@Model.Properties.Title</h2>
+}
+
+<div>
+    @await Html.Kentico().FormZoneAsync()
+</div>
+@*EndDocSection:TitledFormSectionView*@

@@ -15,6 +15,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "IIS": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost/LearningKitCore",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost/LearningKitCore"
+    },
     "LearningKitCore": {
       "commandName": "Project",
       "launchBrowser": true,

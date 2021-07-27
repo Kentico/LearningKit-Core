@@ -34,7 +34,7 @@ namespace LearningKitCore
         public IConfiguration Configuration { get; }
 
 
-        public Startup(IWebHostEnvironment environment,
+        public Startup(IWebHostEnvironment environment, 
                        IConfiguration configuration)
         {
             Environment = environment;
@@ -47,7 +47,11 @@ namespace LearningKitCore
         {
             var kenticoServiceCollection = services.AddKentico(features =>
             {
-                features.UsePageBuilder();
+                features.UsePageBuilder(new PageBuilderOptions()
+                {
+                    DefaultSectionIdentifier = "LearningKit.Sections.DefaultSection",
+                    RegisterDefaultSection = false
+                });
                 features.UsePageRouting();
                 features.UseActivityTracking();
                 features.UseABTesting();
@@ -87,9 +91,7 @@ namespace LearningKitCore
 
             app.UseKentico();
 
-            app.UseCookiePolicy();
             app.UseCors();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -140,7 +142,6 @@ namespace LearningKitCore
                     // Adds the default implementation of the SignInManger
                     .AddSignInManager<SignInManager<ApplicationUser>>();
 
-            services.AddAuthorization();
             //DocSection:ExternalAuth
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
@@ -165,6 +166,8 @@ namespace LearningKitCore
                     twitterOptions.RetrieveUserDetails = true;
                 });
             //EndDocSection:ExternalAuth
+
+            services.AddAuthorization();
 
             services.ConfigureApplicationCookie(c =>
             {

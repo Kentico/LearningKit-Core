@@ -7,7 +7,7 @@ using LearningKitCore.Components.FormBuilder.FormComponents.RgbInputComponent;
 //DocSection:ComponentRegistration
 [assembly: RegisterFormComponent(RgbInputComponent.IDENTIFIER,
                                  typeof(RgbInputComponent),
-                                 "RGB color input", 
+                                 "RGB color input",
                                  Description = "Allows users to specify a color in the RGB hexadecimal format either manually, or by using a color selector",
                                  IconClass = "icon-palette",
                                  ViewName = "~/Components/FormBuilder/FormComponents/RgbInputComponent/_RgbInputComponent.cshtml")]
