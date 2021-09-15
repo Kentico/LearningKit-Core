@@ -1,14 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using CMS.DocumentEngine;
 
 using Kentico.Content.Web.Mvc;
+using Kentico.Components.Web.Mvc.FormComponents;
+using Kentico.Forms.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc.PageTemplates;
 using Kentico.Web.Mvc;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace LearningKit.Areas.CodeSnippets
 {
@@ -112,5 +118,84 @@ namespace LearningKit.Areas.CodeSnippets
             return new TemplateResult();
         }
         //EndDocSection:PageTemplatesAdvancedRouting
+    }
+
+    //DocSection:PathSelectorViewComponent
+    public class PathSelectorWidget : ViewComponent
+    {
+        private readonly IPageRetriever pagesRetriever;
+
+        public PathSelectorWidget(IPageRetriever pagesRetriever)
+        {
+            this.pagesRetriever = pagesRetriever;
+        }
+
+        public IViewComponentResult Invoke(ComponentViewModel<CustomWidgetProperties> properties)
+        {            
+            // Retrieves the node alias paths of the selected pages from the 'PagePaths' property
+            string[] selectedPagePaths = properties?.Properties?.PagePaths?
+                                                                .Select(i => i.NodeAliasPath)
+                                                                .ToArray();
+
+            // Retrieves the pages that correspond to the selected alias paths
+            List<TreeNode> pages = pagesRetriever.Retrieve<TreeNode>(query => query
+                                                 .Path(selectedPagePaths))
+                                                 .ToList();
+
+            // Custom logic...
+
+            return View("~/Components/Widgets/PathSelectorWidget/_PathSelectorWidget.cshtml");
+        }
+    }
+    //EndDocSection:PathSelectorViewComponent
+
+    //DocSection:PageSelectorViewComponent
+    public class PageSelectorWidget : ViewComponent
+    {
+        private readonly IPageRetriever pagesRetriever;
+
+        public PageSelectorWidget(IPageRetriever pagesRetriever)
+        {
+            this.pagesRetriever = pagesRetriever;
+        }
+
+        public IViewComponentResult Invoke(ComponentViewModel<CustomWidgetProperties> properties)
+        {
+            // Retrieves the node GUIDs of the selected pages from the 'Pages' property
+            List<Guid> selectedPageGuids = properties?.Properties?.Pages?
+                                                                  .Select(i => i.NodeGuid)
+                                                                  .ToList();
+
+            // Retrieves the pages that correspond to the selected GUIDs
+            List<TreeNode> pages = pagesRetriever.Retrieve<TreeNode>(query => query
+                                                 .WhereIn("NodeGUID", selectedPageGuids))
+                                                 .ToList();
+
+            // Custom logic...
+
+            return View("~/Components/Widgets/PageSelectorWidget/_PageSelectorWidget.cshtml");
+        }            
+    }
+    //EndDocSection:PageSelectorViewComponent
+
+    public class CustomWidgetProperties : IWidgetProperties
+    {
+        // Assigns a selector component to the Pages property
+        [EditingComponent(PageSelector.IDENTIFIER)]
+        // Limits the selection of pages to a subtree rooted at the 'Products' page
+        [EditingComponentProperty(nameof(PageSelectorProperties.RootPath), "/Products")]
+        // Sets an unlimited number of selectable pages
+        [EditingComponentProperty(nameof(PageSelectorProperties.MaxPagesLimit), 0)]
+        // Returns a list of page selector items (node GUIDs)
+        public IEnumerable<PageSelectorItem> Pages { get; set; } = Enumerable.Empty<PageSelectorItem>();
+
+        // Assigns a selector component to the 'PagePaths' property
+        [EditingComponent(PathSelector.IDENTIFIER)]
+        // Limits the selection of pages to a subtree rooted at the 'Products' page
+        [EditingComponentProperty(nameof(PathSelectorProperties.RootPath), "/Products")]
+        // Sets the maximum number of selected pages to 6
+        [EditingComponentProperty(nameof(PathSelectorProperties.MaxPagesLimit), 6)]
+        // Returns a list of path selector items (page paths)
+        public IEnumerable<PathSelectorItem> PagePaths { get; set; } = Enumerable.Empty<PathSelectorItem>();
     }
 }
