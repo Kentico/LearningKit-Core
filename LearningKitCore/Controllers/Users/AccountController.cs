@@ -130,7 +130,7 @@ namespace LearningKitCore.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SignOut()
+        public new IActionResult SignOut()
         {
             // Signs out the current user
             signInManager.SignOutAsync();
